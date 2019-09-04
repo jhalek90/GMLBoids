@@ -63,27 +63,23 @@ for(var i=0; i<number_of_boids; i++){ //loop through all boids.
 	}
 
 				
-	var bxhold=bx+lengthdir_x(bspeed,bdirection) 
+    
+	var bxhold=bx+lengthdir_x(bspeed,bdirection) //these coords hold the position we are about to move to
 	var byhold=by+lengthdir_y(bspeed,bdirection) 
 	var bdirhold=bdirection
 	
-	if  (bxhold<0)or(bxhold>room_width)or(byhold<0)or(byhold>room_height){
+	if  (bxhold<0)or(bxhold>room_width)or(byhold<0)or(byhold>room_height){// if we are about to move outside the room
 		var dirchange=5
 		do{
-			bdirection=bdirhold+(dirchange*choose(-1,1))
-			dirchange+=1
-			bxhold=bx+lengthdir_x(bspeed,bdirection) 
-			byhold=by+lengthdir_y(bspeed,bdirection)
-		}until((bxhold>0)and(bxhold<room_width)and(byhold>0)and(byhold<room_height))or(dirchange>180)
-		
-		if dirchange<180{
-			bx=bxhold //actually move the boid
-			by=byhold
-		}
-	}else{
-		bx=bxhold //actually move the boid
-		by=byhold
-	}
+				bdirection=bdirhold+(dirchange*choose(-1,1))//change direction slightly
+				dirchange+=1
+				bxhold=bx+lengthdir_x(bspeed,bdirection) //check if new position is outside room
+				byhold=by+lengthdir_y(bspeed,bdirection)
+			}until((bxhold>0)and(bxhold<room_width)and(byhold>0)and(byhold<room_height))or(dirchange>180)// do this until we are either nor going outside of the room
+		}                                                                                                // or we have spun 180 deg
+
+	bx=bxhold //actually move the boid                                  
+	by=byhold
 	
 
 	
